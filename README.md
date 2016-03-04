@@ -3,7 +3,7 @@
 ### Embrace Immutability
 (https://realm.io/news/slug-keith-smiley-embrace-immutability/)
 
-1. In server-driven applications, client models **must** be as immutable as possible.
+* In server-driven applications, client models **must** be as immutable as possible.
 ```swift
 struct Ride: Mappable {
     var pickup: Place?
@@ -16,4 +16,4 @@ struct RideRequest {
 }
 ```
 
-2. The problem with most JSON mappers is that they encourage to create mutable models, or models with optional properties (which is not quite good in many cases).
+* The problem with most JSON mappers is that they encourage to create mutable models, or models with optional properties (which is not quite good in many cases).
