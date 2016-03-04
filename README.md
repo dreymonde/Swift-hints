@@ -81,3 +81,9 @@ If you wan't to use third-party frameworks (via Carthage), it becomes a less ugl
 $ xcrun -sdk macosx swiftc -F Carthage/Build/Mac/ btc.swift -Xlinker -v -Xlinker -rpath -Xlinker @executable_path/Carthage/Build/Mac/
 ```
 And you can't actually pack the executable with the frameworks, you're just *linking* to them. Sadly, but that's how dynamic frameworks actually work.
+
+## Functional View Controllers
+(https://www.youtube.com/watch?v=uQFI9rDrl8s)
+
+#### Lighter view controllers
+It's a good practice to put some work *out* of view controllers which are insanely complex. A lot of "model stuff" needs to be implemented by model - for example, `UITableViewDataSource`. Same thing with the views.
