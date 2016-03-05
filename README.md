@@ -87,3 +87,16 @@ And you can't actually pack the executable with the frameworks, you're just *lin
 
 #### Lighter view controllers
 It's a good practice to put some work *out* of view controllers which are insanely complex. A lot of "model stuff" needs to be implemented by model - for example, `UITableViewDataSource`. Same thing with the views.
+
+## Swift-ly Secure
+(https://realm.io/news/seth-law-swift-security/)
+
+- Your product does *not* trust it's users.
+- Most of Apple's storaging APIs does not provide an encryption.
+- Starting from iOS 8.3, you can't access file system, but still can access it with the backups.
+- Don't store sensitive data in the property lists.
+- Store it in the Keychain.
+- Be aware of App Sharing.
+- There is no good reason not to encrypt anymore.
+- Third-party frameworks can't be 100% trusted.
+- Security is hard. *Try harder.*
