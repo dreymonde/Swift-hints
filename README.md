@@ -100,3 +100,12 @@ It's a good practice to put some work *out* of view controllers which are insane
 - There is no good reason not to encrypt anymore.
 - Third-party frameworks can't be 100% trusted.
 - Security is hard. *Try harder.*
+
+## Functional Reactive Awesome
+(https://realm.io/news/altconf-ash-furrow-functional-reactive-swift/)
+
+- Three main concepts: streams, transformations and bindings.
+- Streams are "pipes": if you don't catch what's going outside of it, it's gone forever.
+- Make a stream, transform that stuff to another stuff, and then bind *that* stuff to things. `¯\_(ツ)_/¯`
+ 
+> If you wanted to explicitly cancel it, that is very imperative of you. Not that there’s anything wrong with imperative programming, but when you’re using Functional Reactive Programming, it’s like having Google’s Chromecast in an Apple ecosystem. Your life is a little bit harder. When you’re doing Functional Reactive Programming, the more imperative code you use, the harder your life is. If you buy into this ecosystem of FRP, just like when you buy into the ecosystem of Apple, things get easier.
