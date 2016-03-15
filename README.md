@@ -200,3 +200,5 @@ class LoginViewController: UIViewController, ValidatesUsername, ValidatesPasswor
 #### Object layer and value layer
 Think of your app as being in two layers: the object layer and the value layer. Object value should react and behave, but all of the logic should be accomplished in the value layer. 
 > The object layer is full of objects that are just a thin veneer that consume events, consult the value layer to compute a new value, then store it. All of the business logic of your application lives in the value layer. If we think about it in this way, we can really get to a picture where the object layer is tiny and the value layer contains the bulk of the application.
+
+Actually, objects are just air traffic controllers.
