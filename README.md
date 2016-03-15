@@ -183,3 +183,20 @@ class LoginViewController: UIViewController, ValidatesUsername, ValidatesPasswor
 ```
 
 > With inheritance the only structure you can make is a hierarchy. But by placing your reusable code in protocol extensions, you’re no longer limited to just hierarchies — you’ve got more freedom in how you stick your building blocks together to build bigger components.
+
+## Making Friends with Value Types
+(https://realm.io/news/andy-matuschak-controlling-complexity/)
+
+- Almost everything in the Swift standard library is a value type.
+- *Swift <3 values.*
+- Value types are inert, isolated and interchangeable.
+- It just doesn't matter whether we call a mutable method on a struct variable, or assign it to a new value. The only thing that matters is the *value*, and it doesn't give a shit about anything else.
+- You can't *mutate* the value, you just change the *variable* that storing the value.
+
+#### Values, objects and states
+![Values, objects and states](Resources/State.jpg)
+**Quick thought**: values are values - it's a natural state around us, a three-dimensional entity. Object has a fourth dimension - it has time.
+
+#### Object layer and value layer
+Think of your app as being in two layers: the object layer and the value layer. Object value should react and behave, but all of the logic should be accomplished in the value layer. 
+> The object layer is full of objects that are just a thin veneer that consume events, consult the value layer to compute a new value, then store it. All of the business logic of your application lives in the value layer. If we think about it in this way, we can really get to a picture where the object layer is tiny and the value layer contains the bulk of the application.
