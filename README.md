@@ -202,3 +202,67 @@ Think of your app as being in two layers: the object layer and the value layer. 
 > The object layer is full of objects that are just a thin veneer that consume events, consult the value layer to compute a new value, then store it. All of the business logic of your application lives in the value layer. If we think about it in this way, we can really get to a picture where the object layer is tiny and the value layer contains the bulk of the application.
 
 Actually, objects are just air traffic controllers.
+
+## Enemy of the State
+(https://www.youtube.com/watch?v=7AqXBuJOJkY)
+
+- Easy and simple are not the same things.
+- States are familiar, but complex.
+- Values never change. Only variables do (again, I know).
+- Values are automatically thread-safe.
+- Stateless core, stateful shell.
+
+#### Pure functions
+Same inputs always yield the same result.
+Impure functions vs. pure functions:
+```swift
+func formattedCurrentTime() -> String {
+    let now = NSDate()
+
+    let formatter = NSDateFormatter()
+    formatter.timeStyle =
+        NSDateFormatterStyle.MediumStyle
+
+    return formatter.stringFromDate(now)
+}
+
+func formattedTimeFromDate(date: NSDate) -> String {
+    let formatter = NSDateFormatter()
+    formatter.timeStyle =
+        NSDateFormatterStyle.MediumStyle
+
+    return formatter.stringFromDate(date)
+}
+```
+
+#### Say no to global
+**Singletons are just global variables**, and global = evil.
+The most popular example of using singletons is API clients (каюсь):
+```swift
+class MBNetworkingServices: NSObject { // NSObject, oh my
+    static let sharedInstance = MBNetworkingServices()
+    func fetchImageData( ... )
+    ...
+}
+```
+This is problematic and almost impossible to test correctly or change functionality. *Let's just pass instances around instead*.
+```swift
+class APIClient {
+    // Fetches the top-level list of categories
+    func fetchCategories() -> [Category]
+}
+
+class MyViewController: UIViewController {
+    let client: APIClient
+
+    designated init(client: APIClient) {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        client.fetchCategories()
+    }
+}
+```
