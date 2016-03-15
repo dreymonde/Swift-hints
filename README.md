@@ -109,3 +109,77 @@ It's a good practice to put some work *out* of view controllers which are insane
 - Make a stream, transform that stuff to another stuff, and then bind *that* stuff to things. `¯\_(ツ)_/¯`
  
 > If you wanted to explicitly cancel it, that is very imperative of you. Not that there’s anything wrong with imperative programming, but when you’re using Functional Reactive Programming, it’s like having Google’s Chromecast in an Apple ecosystem. Your life is a little bit harder. When you’re doing Functional Reactive Programming, the more imperative code you use, the harder your life is. If you buy into this ecosystem of FRP, just like when you buy into the ecosystem of Apple, things get easier.
+
+## Mixins and Traits in Swift 2.0
+(http://matthijshollemans.com/2015/07/22/mixins-and-traits-in-swift-2/)
+
+- Prefer composition over inheritance. Because *inheritance kinda sucks*.
+
+#### Massive View Controllers is a bad thing (again)
+"Default" way to validate username and password:
+```swift
+class LoginViewController: UIViewController {
+  private func isUsernameValid(username: String) -> Bool {
+    ...
+  }
+
+  private func isPasswordValid(password: String) -> Bool {
+    ...
+  }
+
+  @IBAction func loginButtonPressed() {
+    if isUsernameValid(usernameTextField.text!) && 
+       isPasswordValid(passwordTextField.text!) {
+      // proceed with login
+    } else {
+      // show alert
+    }
+  }
+  ...
+}
+```
+
+Well, that is a *bad* practice and rapidly leading you to *Massive View Controllers*.
+The first thing that pops in mind is to create another classes which validate username and password:
+```swift
+class UsernameValidator {
+  func isUsernameValid(username: String) -> Bool {
+    ...
+  }
+}
+
+class LoginViewController: UIViewController {
+  let usernameValidator = UsernameValidator()
+  let passwordValidator = PasswordValidator()
+  ...
+}
+```
+
+That's better and lighter, but we can make even better and cooler solution using ***protocols***.
+```swift
+protocol ValidatesUsername {
+  func isUsernameValid(password: String) -> Bool
+}
+
+extension ValidatesUsername {
+  func isUsernameValid(username: String) -> Bool {
+    ...
+  }
+}
+```
+
+Now, we can add conformance to this protocol for our View Controller, and voilà:
+```swift
+class LoginViewController: UIViewController, ValidatesUsername, ValidatesPassword {
+  @IBAction func loginButtonPressed() {
+    if isUsernameValid(usernameTextField.text!) && 
+       isPasswordValid(passwordTextField.text!) {
+      // proceed with login
+    } else {
+      // show alert
+    }
+  }
+}
+```
+
+> With inheritance the only structure you can make is a hierarchy. But by placing your reusable code in protocol extensions, you’re no longer limited to just hierarchies — you’ve got more freedom in how you stick your building blocks together to build bigger components.
