@@ -289,9 +289,9 @@ var loopSum = 0
 for person in people {
     loopSum += person.age
 }
-print(loopSum)
+print(loopSum) // 200
 
 // Sum using reduce
 let reduceSum = people.reduce(0) { $0 + $1.age }
-print(loopSum)
+print(loopSum) // 200
 ```
