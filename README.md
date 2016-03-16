@@ -278,3 +278,5 @@ All stdlib protocols can be splitted in three large groups:
   - Identity (`Sequence`, `Collection`, `IteratorProtocol` - Swift 3 ready, yeah) - a powerful instrument to compose better architecture of your app. For example, `String` conforms to 11 different protocols.
 - **Can be** protocols:
   - Conversions (`CustomStringConvertible`, `IntegerLiteralConvertible`, `ArrayLiteralConvertible`) - an object can be converted to a whole different instance which will have it's own life after the operation.
+
+> And if I'm only gonna have one type that conforms to the protocol, then it's pretty much, I'll just leave it to the type. If the type does 10 things then so be it. But if it happens even twice, just more than once, that's enough for me to say, "Okay, it's common enough to happen twice" which seems like a miracle to have some kind of duplication, and maybe that'll happen in more than one time.
