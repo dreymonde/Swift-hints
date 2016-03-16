@@ -272,8 +272,8 @@ class MyViewController: UIViewController {
 
 All stdlib protocols can be splitted in three large groups:
 - **Can do** protocols:
-  - Operations (`Hashable`, `Equatable`, `Your name goes here`)
-  - Alternate views (`RawRepresentable`, `CustomPlaygroundQuickLookable`, `DataEncodable`) - the thing itself isn't changing, it just provides an alternate view from the outside, the other angle, like a full image to a thumbnail or something like that.
+  - Operations (`Hashable`, `Equatable`, *`Your name goes here`*)
+  - Alternate views (`RawRepresentable`, `CustomPlaygroundQuickLookable`, *`DataEncodable`*) - the thing itself isn't changing, it just provides an alternate view from the outside, the other angle, like a full image to a thumbnail or something like that.
 - **Is a** protocols:
   - Identity (`Sequence`, `Collection`, `IteratorProtocol` - Swift 3 ready, yeah) - a powerful instrument to compose better architecture of your app. For example, `String` conforms to 11 different protocols.
 - **Can be** protocols:
