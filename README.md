@@ -273,11 +273,11 @@ class MyViewController: UIViewController {
 All stdlib protocols can be splitted in three large groups:
 - **Can do** protocols:
   - Operations (`Hashable`, `Equatable`, *`Your name goes here`*)
-  - Alternate views (`RawRepresentable`, `CustomPlaygroundQuickLookable`, *`DataEncodable`*) - the thing itself isn't changing, it just provides an alternate view from the outside, the other angle, like a full image to a thumbnail or something like that.
+  - Alternate views (`RawRepresentable`, `CustomPlaygroundQuickLookable`) - the thing itself isn't changing, it just provides an alternate view from the outside, the other angle, like a full image to a thumbnail or something like that.
 - **Is a** protocols:
   - Identity (`Sequence`, `Collection`, `IteratorProtocol` - Swift 3 ready, yeah) - a powerful instrument to compose better architecture of your app. For example, `String` conforms to 11 different protocols.
 - **Can be** protocols:
-  - Conversions (`CustomStringConvertible`, `IntegerLiteralConvertible`, `ArrayLiteralConvertible`) - an object can be converted to a whole different instance which will have it's own life after the operation.
+  - Conversions (`CustomStringConvertible`, `IntegerLiteralConvertible`, `ArrayLiteralConvertible`, *`DataEncodable`*) - an object can be converted to a whole different instance which will have it's own life after the operation.
 
 > And if I'm only gonna have one type that conforms to the protocol, then it's pretty much, I'll just leave it to the type. If the type does 10 things then so be it. But if it happens even twice, just more than once, that's enough for me to say, "Okay, it's common enough to happen twice" which seems like a miracle to have some kind of duplication, and maybe that'll happen in more than one time.
 
