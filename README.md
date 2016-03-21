@@ -295,3 +295,81 @@ print(loopSum) // 200
 let reduceSum = people.reduce(0) { $0 + $1.age }
 print(loopSum) // 200
 ```
+
+## Avoidance of partial functions
+(http://www.cocoawithlove.com/blog/2016/01/25/partial-functions-part-one-avoidance.html)
+
+#### Functions with preconditions (partial functions)
+It is better to terminate execution of the program than to allow it to flow in *indeterminate state*. So instead of this:
+```swift
+func toBool(x: Int) -> Bool {
+    if x == 0 {
+        return false
+    }
+    return true
+}
+```
+where -1 leads to `true`, it is *better* to run something like this, which will fail, if `x` is not 0 or 1:
+```swift
+func toBool(x: Int) -> Bool {
+    precondition(x == 0 || x == 1, "This function can only convert 0 or 1 to Bool")
+    if x == 0 {
+        return false
+    }
+    /* x == 1 */
+    return true
+}
+```
+
+#### The problem with partial functions
+> 1. A partial function’s requirements must be clearly documented
+2. Users of the function must read and understand the documentation
+3. Tests must exercise a wide range to confirm usage remains correctly inside required bounds in all cases
+
+Avoid them because:
+> 1. They have requirements that the compiler cannot verify
+2. They can pass your testing but still cause fatal errors after deployment if different data is encountered
+
+Conclusion:
+> If your program uses partial functions, this leaves you expsed to potential runtime failure.
+
+#### Avoid partial functions and use total functions instead
+The problem of partial functions is not the checking of preconditions, but the existence of preconditions themselves. We may have a function
+```swift
+func divideFiveBy(x: Int) -> Int {
+    return 5 / x
+}
+```
+Which is partial because `x` must be *not zero*. To make this function *total*, we can do next:
+```swift
+struct NonZeroInt {
+    let value: Int
+    init?(fromInt: Int) {
+        guard fromInt != 0 else { return nil }
+        value = fromInt
+    }
+}
+
+func divideFiveBy(x: NonZeroInt) -> Int {
+    return 5 / x.value
+}
+```
+> Think about the path of data through your program as a pipeline: if your data won’t fit through the whole pipeline, reject it at the start rather than letting it cause problems in the middle. Ideally, construction should be the only scenario that can fail and every use case should be a “total function”.
+
+#### Other approaches
+##### Change the return type:
+```swift
+func toBool(x: Int) -> Bool? {
+    switch x {
+    case 0: return false
+    case 1: return true
+    default: nil
+    }
+}
+```
+
+#### The most important lesson
+**Do not avoid a partial function by failing to check preconditions.**
+> That’s worse than a crash. Failing to check preconditions results in indeterminate behavior that can let misbehavior propagate, potentially leading to “worst case” scenarios. It also impedes debugging and allows misbehaviors to persist rather than being quickly caught. If your function has requirements, check them!
+
+Improve design instead.
